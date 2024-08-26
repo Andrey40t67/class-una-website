@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поздравления для класса УНА</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-size: cover;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        #login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.8);
+            animation: fadeIn 1s ease-out, backgroundAnimation 10s infinite alternate;
+            backdrop-filter: blur(5px);
+        }
+
+        .login-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+            width: 320px;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="password"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #error-message {
+            color: red;
+            margin-top: 15px;
+        }
+
+        #main-container {
+            display: none;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        main {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1, h2, p {
+            margin: 0 0 20px;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        footer {
+            margin-top: 20px;
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 30px;
+        }
+
+        .game-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        .game-button:hover {
+            background-color: #0056b3;
+        }
+
+        #memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .card.flipped {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .quiz-question {
+            margin: 20px 0;
+        }
+
+        .quiz-question label {
+            display: block;
+            margin: 15px 0;
+        }
+
+        .quiz-question input {
+            margin-right: 10px;
+        }
+
+        .quiz-question input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .login-box {
+                width: 90%;
+            }
+
+            main {
+                padding: 15px;
+            }
+
+            #memory-game {
+                grid-template-columns: repeat(2, 100px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .emoji-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+            background: url('https://emoji.example.com/emoji-background.png') repeat;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="emoji-background"></div>
+    <!-- Страница входа -->
+    <div id="login-container">
+        <div class="login-box">
+            <h1>Добро пожаловать на сайт класса УНА!</h1>
+            <input type="password" id="password" placeholder="Введите пароль">
+            <button onclick="checkPassword()">Войти</button>
+            <p id="error-message"></p>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <div id="main-container">
+        <header>
+            <h1>Поздравления для класса УНА</h1>
+        </header>
+        <main>
+            <section id="greeting">
+                <h2>Поздравляем!</h2>
+                <p>Поздравляем с окончанием 4-го класса! Вы достигли больших высот и теперь готовы к новым вызовам в средней школе.</p>
+            </section>
+
+            <section id="about-school">
+                <h2>О школе УНА</h2>
+                <p>Школа УНА — это образовательное учреждение, где каждый учащийся может раскрыть свои таланты и добиться отличных результатов в учебе.</p>
+            </section>
+
+            <section id="teacher">
+                <h2>Наш классный руководитель</h2>
+                <p>Ольга Вячеславовна Зенькова — наш замечательный классный руководитель. Мы благодарны ей за поддержку и руководство в этом учебном году.</p>
+            </section>
+
+            <section id="students">
+                <h2>Наши одноклассники</h2>
+                <ul>
+                    <li>Андрей Пашкевич</li>
+                    <li>Джианни Зокали</li>
+                    <li>Злата Власова</li>
+                    <li>Саша Завлишин</li>
+                    <li>Саша Иванущенко</li>
+                    <li>Леша Оксенов</li>
+                    <li>Петя</li>
+                    <li>Алиса Бегболатова</li>
+                    <li>Даша Шипшилей</li>
+                    <li>Катя Малафеева</li>
+                    <li>Амелия Баркова</li>
+                </ul>
+            </section>
+
+            <section id="achievements">
+                <h2>Наши достижения</h2>
+                <ul>
+                    <li>1-е место на школьных соревнованиях по математике</li>
+                    <li>Лучшие проектные работы</li>
+                    <li>Отличные результаты на тестах</li>
+                    <li>Участие в конкурсах и олимпиадах</li>
+                </ul>
+            </section>
+
+            <section id="games">
+                <h2>Игры и тесты</h2>
+                <div class="game-container">
+                    <button class="game-button" onclick="startMemoryGame()">Начать игру "Память"</button>
+                    <button class="game-button" onclick="startQuiz()">Пройти тест</button>
+                </div>
+
+                <!-- Игра "Память" -->
+                <div id="memory-game" style="display:none;"></div>
+
+                <!-- Тест -->
+                <div id="quiz" style="display:none;">
+                    <h2>Тест на знания</h2>
+                    <div class="quiz-question">
+                        <label>1. Какое значение выражает 3^7?</label>
+                        <input type="radio" name="question1" value="2187"> 2187
+                        <input type="radio" name="question1" value="3^3×3^4"> 3^3×3^4
+                        <input type="radio" name="question1" value="3^6"> 3^6
+                    </div>
+                    <div class="quiz-question">
+                        <label>2. Если у вас 3 числа: 5, 7 и 9, какой из них является наибольшим простым числом?</label>
+                        <input type="radio" name="question2" value="5"> 5
+                        <input type="radio" name="question2" value="7"> 7
+                        <input type="radio" name="question2" value="9"> 9
+                    </div>
+                    <div class="quiz-question">
+                        <label>3. Найдите значение выражения: (3^2 × 2^3) ÷ (2 × 3) + 5</label>
+                        <input type="radio" name="question3" value="16"> 16
+                        <input type="radio" name="question3" value="18"> 18
+                        <input type="radio" name="question3" value="20"> 20
+                    </div>
+                    <div class="quiz-question">
+                        <label>4. Сколько будет 7! (факториал 7)?</label>
+                        <input type="radio" name="question4" value="5040"> 5040
+                        <input type="radio" name="question4" value="720"> 720
+                        <input type="radio" name="question4" value="40320"> 40320
+                    </div>
+                    <div class="quiz-question">
+                        <label>5. Если число x увеличивается на 15% и становится 115, чему было равно x?</label>
+                        <input type="radio" name="question5" value="100"> 100
+                        <input type="radio" name="question5" value="95"> 95
+                        <input type="radio" name="question5" value="85"> 85
+                    </div>
+                    <div class="quiz-question">
+                        <label>6. Какой элемент периодической таблицы имеет атомный номер 26?</label>
+                        <input type="radio" name="question6" value="Железо"> Железо
+                        <input type="radio" name="question6" value="Медь"> Медь
+                        <input type="radio" name="question6" value="Цинк"> Цинк
+                    </div>
+                    <button onclick="submitQuiz()">Проверить ответы</button>
+                    <p id="quiz-result"></p>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>Все права защищены &copy; 2024 Школа УНА</p>
+        </footer>
+    </div>
+
+    <script>
+        const correctPassword = '2914';
+
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            if (password === correctPassword) {
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('main-container').style.display = 'block';
+            } else {
+                errorMessage.textContent = 'Неверный пароль. Попробуйте снова.';
+            }
+        }
+
+        function startMemoryGame() {
+            const gameContainer = document.getElementById('memory-game');
+            gameContainer.innerHTML = '';
+            gameContainer.style.display = 'grid';
+
+            const cards = [];
+            for (let i = 1; i <= 8; i++) {
+                cards.push(i, i);
+            }
+
+            shuffle(cards);
+
+            cards.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('card');
+                cardElement.dataset.value = card;
+                cardElement.addEventListener('click', () => flipCard(cardElement));
+                gameContainer.appendChild(cardElement);
+            });
+        }
+
+        let flippedCards = [];
+        let matchedCards = 0;
+
+        function flipCard(cardElement) {
+            if (flippedCards.length < 2 && !cardElement.classList.contains('flipped')) {
+                cardElement.classList.add('flipped');
+                cardElement.textContent = cardElement.dataset.value;
+                flippedCards.push(cardElement);
+
+                if (flippedCards.length === 2) {
+                    setTimeout(checkMatch, 500);
+                }
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.value === card2.dataset.value) {
+                matchedCards += 2;
+                if (matchedCards === 16) {
+                    alert('Поздравляю, вы выиграли!');
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                card1.textContent = '';
+                card2.textContent = '';
+            }
+            flippedCards = [];
+        }
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function startQuiz() {
+            document.getElementById('quiz').style.display = 'block';
+        }
+
+        function submitQuiz() {
+            const questions = [
+                { name: 'question1', correct: '3^3×3^4' },
+                { name: 'question2', correct: '7' },
+                { name: 'question3', correct: '16' },
+                { name: 'question4', correct: '5040' },
+                { name: 'question5', correct: '100' },
+                { name: 'question6', correct: 'Железо' }
+            ];
+
+            let score = 0;
+
+            questions.forEach(question => {
+                const selected = document.querySelector(`input[name="${question.name}"]:checked`);
+                if (selected && selected.value === question.correct) {
+                    score++;
+                }
+            });
+
+            const resultText = `Вы ответили правильно на ${score} из ${questions.length} вопросов.`;
+            document.getElementById('quiz-result').textContent = resultText;
+        }
+    </script>
+</body>
+</html>
